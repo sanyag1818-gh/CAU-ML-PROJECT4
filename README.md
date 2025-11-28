@@ -11,21 +11,21 @@ Kaggle submission.
 
 ## 📁 Project Structure
 CAU-ML-PROJECT4/
-│
 ├── notebooks/
-│   ├── NotebookA_Research.ipynb       # Full research workflow: EDA, FE, training, backtesting
-│   └── NotebookB_Inference.ipynb      # Kaggle inference server notebook
+│   ├── NotebookA_Research.ipynb        # Full research workflow: EDA, FE, training, backtesting
+│   └── NotebookB_Inference.ipynb       # Kaggle inference server notebook
 │
 ├── report/
-│   └── ML_Project4_Report.pdf         # Final project report
+│   └── ML_Project4_Report.pdf          # Final project report
 │
 ├── submissions/
-│   └── submission.csv                 # Kaggle-ready submission file
+│   └── submission.csv                  # Kaggle-ready submission file
 │
 ├── models/
-│   └── final_lgbm_model.pkl           # Saved LightGBM model & features
+│   └── final_lgbm_model.pkl            # Saved LightGBM model + feature list
 │
-└── README.md
+└── README.md                           # Project documentation
+
 
 ## 🔍 1. Project Overview
 
