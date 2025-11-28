@@ -156,10 +156,3 @@ server.run_local_gateway((KAGGLE_INPUT_PATH,))
 Kaggle Score: XX.XXXXX
 Validation RMSE: XXXX
 Directional Accuracy: XX%
-
-6. Author
-
-Sanya
-Team ID: (Your Team Number)
-Student ID: 20222987
-Chung-Ang University, Department of Computer Science and Engineering
