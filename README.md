@@ -1,211 +1,179 @@
-# CAU-ML-PROJECT4
-Hull Tactical Market Prediction - CAU Machine Learning Project 4
+# 📈 CAU Machine Learning Project 4
+## Hull Tactical Market Prediction
+
+This repository contains the complete implementation for Project 4 of the 
+Machine Learning course at Chung-Ang University. The project covers the 
+full pipeline required to solve the Hull Tactical Market Prediction problem, 
+including research, feature engineering, model building, evaluation, and 
+Kaggle submission.
+
+---
+
+## 📁 Project Structure
+CAU-ML-PROJECT4/
+│
+├── notebooks/
+│   ├── NotebookA_Research.ipynb       # Full research workflow: EDA, FE, training, backtesting
+│   └── NotebookB_Inference.ipynb      # Kaggle inference server notebook
+│
+├── report/
+│   └── ML_Project4_Report.pdf         # Final project report
+│
+├── submissions/
+│   └── submission.csv                 # Kaggle-ready submission file
+│
+├── models/
+│   └── final_lgbm_model.pkl           # Saved LightGBM model & features
+│
+└── README.md
+
+## 🔍 1. Project Overview
+
+The objectives of this project are:
+
+- Predict market-forward excess returns for the S&P 500.
+- Convert predictions into valid portfolio allocation weights (0–2).
+- Ensure strategy volatility ≤ **1.2 ×** benchmark volatility.
+- Submit final predictions to Kaggle’s evaluation server.
+
+## 📊 2. Exploratory Data Analysis (Notebook A)
+
+- Examination of feature groups: **D, E, I, M, P, S, V**
+- Detection of missing values and data gaps
+- Visualizing return distributions and long-term market structure
+- Checking target variable behavior over decades
+
+## 🔧 3. Baseline Models
+
+### Momentum Baseline  
+- **MSE:** 0.000136  
+- **MAE:** 0.008368  
+- **Direction Accuracy:** 48.14%
+
+### Random Forest Baseline (Lag Features 1–5)
+- **MSE:** 0.000126  
+- **RMSE:** 0.011207  
+- **MAE:** 0.007943  
+- **Direction Accuracy:** 48.06%
+
+## 🧠 4. Feature Engineering
+
+- 1–5 day lag returns
+- Rolling mean (5-day and 21-day)
+- Rolling volatility window
+- Drawdown computation per timestamp
+- High-volatility regime indicator
+- Sharpe-like metric calculation
+
+## 🌲 5. Improved LightGBM Model
+
+### Time-Series Cross Validation (5 folds)
+
+| Fold | MSE       | RMSE      | MAE      |
+|------|-----------|-----------|----------|
+| 1    | 0.000157  | 0.012539  | 0.009654 |
+| 2    | 0.000118  | 0.010873  | 0.008075 |
+| 3    | 0.000208  | 0.014435  | 0.010636 |
+| 4    | 0.000085  | 0.009206  | 0.006910 |
+| 5    | 0.000163  | 0.012770  | 0.009117 |
+
+**Average CV RMSE ≈ 0.0120**
+
+(Used as the main model evaluation metric.)
+
+---
+
+## 📉 6. Validation Backtesting Results (Notebook A)
+
+### Volatility
+- **Strategy volatility:** 0.013341  
+- **Benchmark volatility:** 0.011117  
+- **Volatility ratio:** **1.200** (exactly meets the constraint)
+
+### Sharpe-like Metric
+- **Strategy Sharpe-like:** 0.0121  
+- **Benchmark Sharpe-like:** 0.0186  
+
+### Drawdowns
+- **Max strategy drawdown:** −0.3856  
+- **Max benchmark drawdown:** −0.3258  
+
+These results match realistic behavior in noisy financial time series 
+and confirm correct implementation of the required constraints.
 
-This repository contains the full implementation, analysis, and reproducible code for Project 4 — Hull Tactical Market Prediction, completed as part of the Machine Learning course at Chung-Ang University.
-
-The objectives of the project are:
-
-Predict S&P 500 market-forward excess returns.
-
-Convert predictions into valid portfolio allocation weights between 0 and 2.
-
-Maintain model volatility at or below 1.2 times the benchmark volatility.
-
-Submit predictions through Kaggle’s competition server.
-
-2. Repository Structure
-notebooks/
-    NotebookA_Research.ipynb
-    NotebookB_Inference.ipynb
-
-report/
-    ML_Project4_Report.pdf
-
-submissions/
-    submission.csv
-
-models/
-    final_lgbm_model.pkl
-
-README.md
-
-3. Project Overview
-
-This project implements the complete pipeline required for the Hull Tactical Market Prediction task.
-
-3.1 Exploratory Data Analysis
-
-Examination of dataset structure and feature groups (D, E, I, M, P, S, V).
-
-Detection and visualization of missing values.
-
-Analysis of the target variable distribution and trends over time.
-
-3.2 Baseline Models
-
-Momentum-based baseline using 5-day rolling averages.
-
-Lag-feature Random Forest baseline using 1–5 day lags.
-
-Evaluation through MSE, RMSE, MAE, and directional accuracy.
-
-3.3 Feature Engineering
-
-Creation of lag features (1–5 days).
-
-Rolling mean and rolling volatility features.
-
-Drawdown computation.
-
-Identification of high-volatility regimes.
-
-Additional diagnostics, including Sharpe-like statistics.
-
-3.4 Improved Model
-
-Full-feature LightGBM model with exclusion of non-predictive columns.
-
-Five-fold TimeSeriesSplit cross-validation.
-
-Cross-validated RMSE and directional accuracy evaluation.
-
-Feature importance analysis.
-
-3.5 Portfolio Weight Mapping
-
-All model predictions are transformed into portfolio weights using:
-
-tanh-based transformation → shifted → clipped to [0, 2]
-
-3.6 Volatility Constraint
-
-Strategy returns are rescaled when:
-
-model_volatility > 1.2 × benchmark_volatility
-
-3.7 Final Kaggle Submission
-
-LightGBM retrained on the full dataset.
-
-Generation of the final submission file (submission.csv).
-
-Validation using Kaggle’s evaluation server.
-
-4. Reproducibility Instructions
-4.1 Requirements
-
-This project uses the standard Kaggle Python environment, including:
-
-numpy
-pandas
-polars
-joblib
-lightgbm
-scikit-learn
-matplotlib
-seaborn
-
-No additional installations are required when running inside Kaggle.
-
-4.2 Running Notebook A
-
-Open the file:
-
-notebooks/NotebookA_Research.ipynb
-
-Run all cells in order to reproduce:
-
-Exploratory Data Analysis
-
-Feature Engineering
-
-Baseline Models
-
-LightGBM Training
-
-Backtesting
-
-Final submission file generation
-
-4.3 Running Notebook B (Inference Notebook)
-
-Notebook B contains the final model used during Kaggle’s evaluation stage.
-
-File:
-
-notebooks/NotebookB_Inference.ipynb
-
-Notebook B:
-
-Trains the LightGBM model.
-
-Saves the model and feature list.
-
-Defines the prediction function used by the evaluation server.
-
-Starts Kaggle’s default inference server.
-
-To run a local test of the server inside Kaggle:
-
-server.run_local_gateway((KAGGLE_INPUT_PATH,))
-Results
-
-This project evaluates the performance of the LightGBM-based forecasting model using both validation backtesting and the full Kaggle submission pipeline. The following results are obtained from the final validation period in Notebook A.
-
-1. Validation Performance Summary
-
-Strategy volatility: 0.013341
-Benchmark volatility: 0.011117
-Volatility ratio: 1.200
-
-(The volatility constraint requires strategy volatility ≤ 1.2 × benchmark volatility, which is satisfied exactly.)
-
-Strategy Sharpe-like metric: 0.0121
-Benchmark Sharpe-like metric: 0.0186
-
-Max strategy drawdown: −0.3856
-Max benchmark drawdown: −0.3258
-
-These values reflect typical behavior of daily-return forecasting models on financial time series, where noise levels are high and predictive signals are weak. The purpose of the analysis is not to outperform the benchmark but to implement a valid pipeline with proper feature engineering, time-series model training, and risk evaluation. All metrics align with expected ranges for the dataset and satisfy the project’s volatility constraint requirement.
-
-2. Final Model Training
-
-The final LightGBM model was trained on the full dataset with the following configuration:
-
+##  7. Final Model Configuration
 learning_rate: 0.05
-
 n_estimators: 900
-
 num_leaves: 100
-
 max_depth: 10
-
 objective: regression
-
 metric: rmse
-
 n_jobs: -1
-
 random_state: 42
 
-The model fits successfully on the full training set without errors.
+## 📐 8. Portfolio Weight Mapping
 
-3. Kaggle Submission
+All predictions are converted into portfolio allocation weights using:
 
-A submission file (submission.csv) was generated using:
+1. tanh-based normalization  
+2. shifting to positive range  
+3. clipping to **[0, 2]**
 
-The full trained LightGBM model
+This satisfies Kaggle’s submission rules.
 
-The complete feature set defined in the training stage
+---
 
-The required transformation from predictions to weights in the range [0, 2]
+## ⚖️ 9. Volatility Constraint
 
-The notebook produces a valid Kaggle-compatible output.
+After weight generation, strategy returns are rescaled when:
 
-5. Results
 
-(The following values are placeholders. Replace them with your actual results.)
+In validation, the final ratio was:
 
-Kaggle Score: XX.XXXXX
-Validation RMSE: XXXX
-Directional Accuracy: XX%
+
+
+---
+
+## 📤 10. Kaggle Submission
+
+Notebook A and B generate:
+
+- `submission.csv`  
+- Saved LightGBM model  
+- Feature lists  
+- Inference server for Kaggle API testing  
+
+All outputs are Kaggle-compliant.
+
+---
+
+## 🏁 11. Final Results Summary
+
+### Validation (Notebook A)
+- **Final validation RMSE:** 0.013119  
+- **Final validation MAE:** 0.009543  
+- **Direction Accuracy:** 49.09%  
+
+### Backtest Metrics
+- **Volatility ratio:** 1.200  
+- **Strategy Sharpe-like:** 0.0121  
+- **Max Drawdown:** −0.3856  
+
+### Kaggle Output
+- Successfully generated **submission.csv**  
+- Fully compliant inference pipeline  
+
+
+
+
+
+This project fulfills all requirements of CAU ML Project 4:
+- Baseline → Feature Engineering → Model → Backtest → Submission  
+- Time-series proper split  
+- Volatility constraint implemented  
+- Kaggle submission validated  
+
+
+
+
+
