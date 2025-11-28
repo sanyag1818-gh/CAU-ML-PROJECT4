@@ -5,7 +5,7 @@ This repository contains the full implementation for Project 4 of the Machine Le
 
 ---
 
-# 📁 Project Structure
+#  Project Structure
 
 ```
 CAU-ML-PROJECT4/
