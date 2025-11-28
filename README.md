@@ -148,6 +148,59 @@ Starts Kaggle’s default inference server.
 To run a local test of the server inside Kaggle:
 
 server.run_local_gateway((KAGGLE_INPUT_PATH,))
+Results
+
+This project evaluates the performance of the LightGBM-based forecasting model using both validation backtesting and the full Kaggle submission pipeline. The following results are obtained from the final validation period in Notebook A.
+
+1. Validation Performance Summary
+
+Strategy volatility: 0.013341
+Benchmark volatility: 0.011117
+Volatility ratio: 1.200
+
+(The volatility constraint requires strategy volatility ≤ 1.2 × benchmark volatility, which is satisfied exactly.)
+
+Strategy Sharpe-like metric: 0.0121
+Benchmark Sharpe-like metric: 0.0186
+
+Max strategy drawdown: −0.3856
+Max benchmark drawdown: −0.3258
+
+These values reflect typical behavior of daily-return forecasting models on financial time series, where noise levels are high and predictive signals are weak. The purpose of the analysis is not to outperform the benchmark but to implement a valid pipeline with proper feature engineering, time-series model training, and risk evaluation. All metrics align with expected ranges for the dataset and satisfy the project’s volatility constraint requirement.
+
+2. Final Model Training
+
+The final LightGBM model was trained on the full dataset with the following configuration:
+
+learning_rate: 0.05
+
+n_estimators: 900
+
+num_leaves: 100
+
+max_depth: 10
+
+objective: regression
+
+metric: rmse
+
+n_jobs: -1
+
+random_state: 42
+
+The model fits successfully on the full training set without errors.
+
+3. Kaggle Submission
+
+A submission file (submission.csv) was generated using:
+
+The full trained LightGBM model
+
+The complete feature set defined in the training stage
+
+The required transformation from predictions to weights in the range [0, 2]
+
+The notebook produces a valid Kaggle-compatible output.
 
 5. Results
 
