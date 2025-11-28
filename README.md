@@ -11,7 +11,7 @@ This repository contains the full implementation for Project 4 of the Machine Le
 CAU-ML-PROJECT4/
 ├── notebooks/
 │   ├── NotebookA_Research.ipynb        # EDA, FE, model training, backtesting
-│   └── NotebookB_Inference.ipynb       # Kaggle inference notebook
+│   └── NotebookB_Inference.ipynb       # Kaggle submission notebook
 │
 ├── report/
 │   └── ML_Project4_Report.pdf
@@ -129,9 +129,6 @@ Final ratio achieved: 1.200
 
 Generates:  
 - submission.csv  
-- final_lgbm_model.pkl  
-- feature list  
-- clean inference notebook  
 
 ---
 
