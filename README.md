@@ -19,8 +19,6 @@ CAU-ML-PROJECT4/
 ├── submissions/
 │   └── submission.csv                  # Kaggle-ready submission
 │
-├── models/
-│   └── final_lgbm_model.pkl
 │
 └── README.md
 ```
