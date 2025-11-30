@@ -2,6 +2,47 @@
 ## Hull Tactical Market Prediction
 
 This repository contains the full implementation for Project 4 of the Machine Learning course at Chung-Ang University. It includes the complete pipeline for solving the Hull Tactical Market Prediction problem—covering research, feature engineering, model development, backtesting, and Kaggle submission.
+## ⚙️ Reproducibility Guide (Kaggle Environment)
+
+This project was developed within the **Kaggle** platform, utilizing the proprietary competition dataset and inference API. To fully reproduce the analysis, models, and submission, you must follow these steps within a Kaggle Notebook environment.
+
+### Prerequisites
+
+1.  **Kaggle Account:** You must have a registered Kaggle account.
+2.  **Competition Access:** Go to the [Hull Tactical Market Prediction Kaggle Competition Page](https://www.kaggle.com/competitions/hull-tactical-market-prediction/overview) and accept the competition rules to gain access to the required dataset.
+
+### Step 1: Set up the Kaggle Notebook
+
+1.  **Create a New Notebook:** Start a new Kaggle Notebook linked to the **Hull Tactical Market Prediction** competition. The dataset files (`train.csv`, `test.csv`) will be automatically mounted under the `/kaggle/input/` directory.
+2.  **Ensure Libraries are Present:** The following core libraries are required. Most are pre-installed in the Kaggle environment:
+    ```python
+    import numpy as np
+    import pandas as pd
+    import lightgbm as lgb
+    from sklearn.model_selection import TimeSeriesSplit
+    import kaggle_evaluation.default_inference_server
+    ```
+
+### Step 2: Run the Research Notebook (`NotebookA_Research.ipynb`)
+
+1.  Upload **`NotebookA_Research.ipynb`** to your Kaggle Notebook environment.
+2.  Run all cells sequentially. This notebook executes the entire development pipeline:
+    * **EDA** and **Feature Engineering** (Lags, Rolling Features).
+    * Training and evaluation of the **Momentum** and **Random Forest Baselines**.
+    * **Time-Series Cross-Validation** (CV) and backtesting of the final LightGBM model.
+    * **Generates the final `submission.csv`** file in the required format.
+
+### Step 3: Run the Inference Notebook for Submission (`NotebookB_Inference.ipynb`)
+
+1.  Create a **second, separate Kaggle Notebook**. This separation mimics the actual Kaggle submission environment.
+2.  **CRITICAL SETTING:** Ensure the **Internet is Disabled** for this notebook session. Kaggle submissions typically prohibit external network access.
+3.  Upload **`NotebookB_Inference.ipynb`** to this new notebook.
+4.  This notebook handles the final deployment logic:
+    * It trains the **final LightGBM model** (using the configuration determined in `NotebookA`).
+    * It defines the required `predict(data)` function.
+    * It initializes and runs the `kaggle_evaluation.default_inference_server` to enable scoring against the private test set.
+
+**To Submit:** Once the **`NotebookB_Inference.ipynb`** is run and committed **with the Internet Disabled**, use the "Submit" option on the Kaggle platform to generate your final leaderboard score.
 
 ---
 
