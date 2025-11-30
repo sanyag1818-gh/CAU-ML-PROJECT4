@@ -2,7 +2,7 @@
 ## Hull Tactical Market Prediction
 
 This repository contains the full implementation for Project 4 of the Machine Learning course at Chung-Ang University. It includes the complete pipeline for solving the Hull Tactical Market Prediction problem—covering research, feature engineering, model development, backtesting, and Kaggle submission.
-## ⚙️ Reproducibility Guide (Kaggle Environment)
+## Reproducibility Guide (Kaggle Environment)
 
 This project was developed within the **Kaggle** platform, utilizing the proprietary competition dataset and inference API. To fully reproduce the analysis, models, and submission, you must follow these steps within a Kaggle Notebook environment.
 
