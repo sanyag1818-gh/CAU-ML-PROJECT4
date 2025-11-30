@@ -143,7 +143,7 @@ Generates:
 
 ---
 
-# (Optional) Flowchart
+# Flowchart
 
 ```mermaid
 flowchart TD
